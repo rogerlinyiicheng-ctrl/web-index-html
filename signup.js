@@ -43,6 +43,6 @@ if (signupForm) {
 
     localStorage.setItem("users", JSON.stringify(users));
     alert("Sign up successful");
-    window.location.href = "login.html";
+    window.location.href = "index.html";
   });
 }
