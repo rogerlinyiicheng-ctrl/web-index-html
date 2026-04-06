@@ -3,7 +3,7 @@ const logoutBtn = document.getElementById("logoutBtn");
 const currentUser = localStorage.getItem("currentUser");
 
 if (!currentUser) {
-  window.location.href = "login.html";
+  window.location.href = "index.html";
 }
 
 if (welcomeMessage && currentUser) {
