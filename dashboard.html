@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Study Platform - Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <h1>Study Platform</h1>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <h2>Subjects</h2>
+        <ul class="subject-list">
+          <li><a href="subject.html">Math</a></li>
+          <li><a href="subject.html">English</a></li>
+        </ul>
+        <button id="logoutBtn" class="btn">Logout</button>
+      </aside>
+
+      <section class="content">
+        <div class="welcome">
+          <h2 id="welcomeMessage">Welcome!</h2>
+          <p>Choose a subject from the left menu and continue your learning journey.</p>
+        </div>
+
+        <div class="sections">
+          <article class="section-card">
+            <h3>Progress</h3>
+            <p>You completed 5 lessons this week and 2 quizzes.</p>
+          </article>
+
+          <article class="section-card">
+            <h3>Weak Subjects</h3>
+            <p>Math: Fractions and Algebra need more revision.</p>
+          </article>
+
+          <article class="section-card">
+            <h3>Recommended Topics</h3>
+            <p>Try Grammar Basics, Reading Practice, and Word Problems.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+    <script src="dashboard.js"></script>
+  </body>
+</html>
