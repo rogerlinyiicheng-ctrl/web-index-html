@@ -16,6 +16,7 @@
         <section class="panel">
             <h2>Study Material</h2>
             <p>Fractions represent parts of a whole. To add fractions, first make sure they have a common denominator. Then add the numerators and keep the denominator the same. Always simplify the result if possible.</p>
+            <button id="completeLessonBtn" class="btn">Mark as Completed</button>
         </section>
 
         <section class="panel">
@@ -31,16 +32,72 @@
     </main>
 
     <script>
-        document.getElementById("submitBtn").addEventListener("click", function() {
+        const userId = localStorage.getItem("userId");
+        const currentUser = localStorage.getItem("currentUser");
+
+        // 检查登录状态
+        if (!userId || !currentUser) {
+            window.location.href = "index.html";
+        }
+
+        // 完成课程按钮
+        const completeBtn = document.getElementById("completeLessonBtn");
+        if (completeBtn) {
+            completeBtn.addEventListener("click", async function() {
+                try {
+                    const response = await fetch("http://localhost:3000/api/complete-lesson", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ userId: parseInt(userId) }),
+                    });
+
+                    if (response.ok) {
+                        alert("Lesson marked as completed! +1 lesson progress");
+                    } else {
+                        alert("Failed to update progress");
+                    }
+                } catch (error) {
+                    alert("Cannot connect to server");
+                }
+            });
+        }
+
+        // 提交测验
+        document.getElementById("submitBtn").addEventListener("click", async function() {
             const answer = document.querySelector('input[name="q1"]:checked');
             if (!answer) {
                 alert("Please select an answer!");
                 return;
             }
-            if (answer.value === "3/4") {
-                alert("Correct!");
-            } else {
-                alert("Wrong answer!");
+            
+            const isCorrect = answer.value === "3/4";
+            
+            try {
+                const response = await fetch("http://localhost:3000/api/quiz", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        userId: parseInt(userId),
+                        question: "1/2 + 1/4 = ?",
+                        userAnswer: answer.value,
+                        correctAnswer: "3/4",
+                        topic: "Fractions"
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (data.correct) {
+                    alert("✅ Correct! Well done!");
+                } else {
+                    alert(`❌ Wrong! The correct answer is ${data.correctAnswer}. Keep practicing!`);
+                }
+            } catch (error) {
+                alert("Cannot connect to server");
             }
         });
     </script>
